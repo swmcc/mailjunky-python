@@ -1,0 +1,1 @@
+"""MailJunky API resources."""
