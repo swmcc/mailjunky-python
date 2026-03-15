@@ -115,20 +115,26 @@ class Connection:
 
         message = body.get("message", "Request failed")
         code = body.get("code")
-        kwargs = {"status": response.status_code, "code": code, "body": body}
+        status = response.status_code
 
-        if response.status_code == 401:
-            raise AuthenticationError(message or "Authentication failed", **kwargs)
-        elif response.status_code == 404:
-            raise NotFoundError(message or "Not found", **kwargs)
-        elif response.status_code == 422:
-            raise ValidationError(message or "Validation failed", **kwargs)
-        elif response.status_code == 429:
-            raise RateLimitError(message or "Rate limit exceeded", **kwargs)
-        elif response.status_code >= 500:
-            raise ServerError(message or "Server error", **kwargs)
+        if status == 401:
+            raise AuthenticationError(
+                message or "Authentication failed", status=status, code=code, body=body
+            )
+        elif status == 404:
+            raise NotFoundError(message or "Not found", status=status, code=code, body=body)
+        elif status == 422:
+            raise ValidationError(
+                message or "Validation failed", status=status, code=code, body=body
+            )
+        elif status == 429:
+            raise RateLimitError(
+                message or "Rate limit exceeded", status=status, code=code, body=body
+            )
+        elif status >= 500:
+            raise ServerError(message or "Server error", status=status, code=code, body=body)
         else:
-            raise APIError(message, **kwargs)
+            raise APIError(message, status=status, code=code, body=body)
 
     def _parse_body(self, response: httpx.Response) -> dict[str, Any]:
         """Parse response body as JSON.
@@ -142,7 +148,8 @@ class Connection:
         if not response.content:
             return {}
         try:
-            return response.json()
+            result: dict[str, Any] = response.json()
+            return result
         except Exception:
             return {}
 
