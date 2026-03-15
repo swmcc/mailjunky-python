@@ -1,6 +1,7 @@
 """Contact resource for managing contacts in MailJunky."""
 
-from typing import Any, Dict, List, Optional
+import builtins
+from typing import Any, Optional
 
 from .base import BaseResource
 
@@ -24,7 +25,7 @@ class Contacts(BaseResource):
         email: Optional[str] = None,
         tag: Optional[str] = None,
         status: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """List contacts with optional filtering.
 
         Args:
@@ -37,7 +38,7 @@ class Contacts(BaseResource):
         Returns:
             Paginated list of contacts
         """
-        params: Dict[str, Any] = {}
+        params: dict[str, Any] = {}
         if page is not None:
             params["page"] = page
         if limit is not None:
@@ -51,7 +52,7 @@ class Contacts(BaseResource):
 
         return self._connection.get("/api/v1/contacts", params or None)
 
-    def get(self, id: str) -> Dict[str, Any]:
+    def get(self, id: str) -> dict[str, Any]:
         """Get a contact by ID.
 
         Args:
@@ -69,9 +70,9 @@ class Contacts(BaseResource):
         first_name: Optional[str] = None,
         last_name: Optional[str] = None,
         phone: Optional[str] = None,
-        properties: Optional[Dict[str, Any]] = None,
-        tags: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
+        properties: Optional[dict[str, Any]] = None,
+        tags: Optional[builtins.list[str]] = None,
+    ) -> dict[str, Any]:
         """Create a new contact.
 
         Args:
@@ -85,7 +86,7 @@ class Contacts(BaseResource):
         Returns:
             Created contact
         """
-        payload: Dict[str, Any] = {"email": email}
+        payload: dict[str, Any] = {"email": email}
 
         if first_name is not None:
             payload["first_name"] = first_name
@@ -107,9 +108,9 @@ class Contacts(BaseResource):
         first_name: Optional[str] = None,
         last_name: Optional[str] = None,
         phone: Optional[str] = None,
-        properties: Optional[Dict[str, Any]] = None,
-        tags: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
+        properties: Optional[dict[str, Any]] = None,
+        tags: Optional[builtins.list[str]] = None,
+    ) -> dict[str, Any]:
         """Create or update a contact by email.
 
         Args:
@@ -123,7 +124,7 @@ class Contacts(BaseResource):
         Returns:
             Created or updated contact
         """
-        payload: Dict[str, Any] = {"email": email}
+        payload: dict[str, Any] = {"email": email}
 
         if first_name is not None:
             payload["first_name"] = first_name
@@ -145,10 +146,10 @@ class Contacts(BaseResource):
         first_name: Optional[str] = None,
         last_name: Optional[str] = None,
         phone: Optional[str] = None,
-        properties: Optional[Dict[str, Any]] = None,
-        tags: Optional[List[str]] = None,
+        properties: Optional[dict[str, Any]] = None,
+        tags: Optional[builtins.list[str]] = None,
         status: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Update an existing contact.
 
         Args:
@@ -163,7 +164,7 @@ class Contacts(BaseResource):
         Returns:
             Updated contact
         """
-        payload: Dict[str, Any] = {}
+        payload: dict[str, Any] = {}
 
         if first_name is not None:
             payload["first_name"] = first_name
@@ -180,7 +181,7 @@ class Contacts(BaseResource):
 
         return self._connection.patch(f"/api/v1/contacts/{id}", payload)
 
-    def delete(self, id: str) -> Dict[str, Any]:
+    def delete(self, id: str) -> dict[str, Any]:
         """Delete a contact.
 
         Args:
@@ -191,7 +192,7 @@ class Contacts(BaseResource):
         """
         return self._connection.delete(f"/api/v1/contacts/{id}")
 
-    def batch(self, contacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def batch(self, contacts: builtins.list[dict[str, Any]]) -> dict[str, Any]:
         """Create or update multiple contacts.
 
         Args:

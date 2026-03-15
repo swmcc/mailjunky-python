@@ -1,6 +1,6 @@
 """HTTP connection handling for MailJunky API."""
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import httpx
 
@@ -45,7 +45,7 @@ class Connection:
             )
         return self._client
 
-    def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def get(self, path: str, params: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """Make a GET request.
 
         Args:
@@ -58,7 +58,7 @@ class Connection:
         response = self.client.get(path, params=params)
         return self._handle_response(response)
 
-    def post(self, path: str, data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def post(self, path: str, data: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """Make a POST request.
 
         Args:
@@ -71,7 +71,7 @@ class Connection:
         response = self.client.post(path, json=data)
         return self._handle_response(response)
 
-    def patch(self, path: str, data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def patch(self, path: str, data: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """Make a PATCH request.
 
         Args:
@@ -84,7 +84,7 @@ class Connection:
         response = self.client.patch(path, json=data)
         return self._handle_response(response)
 
-    def delete(self, path: str) -> Dict[str, Any]:
+    def delete(self, path: str) -> dict[str, Any]:
         """Make a DELETE request.
 
         Args:
@@ -96,7 +96,7 @@ class Connection:
         response = self.client.delete(path)
         return self._handle_response(response)
 
-    def _handle_response(self, response: httpx.Response) -> Dict[str, Any]:
+    def _handle_response(self, response: httpx.Response) -> dict[str, Any]:
         """Handle API response and raise appropriate errors.
 
         Args:
@@ -130,7 +130,7 @@ class Connection:
         else:
             raise APIError(message, **kwargs)
 
-    def _parse_body(self, response: httpx.Response) -> Dict[str, Any]:
+    def _parse_body(self, response: httpx.Response) -> dict[str, Any]:
         """Parse response body as JSON.
 
         Args:

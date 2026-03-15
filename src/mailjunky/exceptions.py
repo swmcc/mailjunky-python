@@ -1,6 +1,6 @@
 """Custom exceptions for MailJunky SDK."""
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 
 class MailJunkyError(Exception):
@@ -30,7 +30,7 @@ class APIError(MailJunkyError):
         message: str,
         status: Optional[int] = None,
         code: Optional[str] = None,
-        body: Optional[Dict[str, Any]] = None,
+        body: Optional[dict[str, Any]] = None,
     ) -> None:
         self.message = message
         self.status = status

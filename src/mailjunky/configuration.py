@@ -1,6 +1,6 @@
 """Configuration for MailJunky client."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 

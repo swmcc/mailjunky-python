@@ -2,8 +2,6 @@
 
 from unittest.mock import MagicMock
 
-import pytest
-
 from mailjunky.resources.contacts import Contacts
 from mailjunky.resources.emails import Emails
 from mailjunky.resources.events import Events
@@ -75,9 +73,7 @@ class TestEmails:
 
         self.emails.send_batch(emails)
 
-        self.connection.post.assert_called_once_with(
-            "/api/v1/emails/batch", {"emails": emails}
-        )
+        self.connection.post.assert_called_once_with("/api/v1/emails/batch", {"emails": emails})
 
 
 class TestContacts:

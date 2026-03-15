@@ -1,6 +1,6 @@
 """Events resource for tracking user behaviour in MailJunky."""
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from .base import BaseResource
 
@@ -22,11 +22,11 @@ class Events(BaseResource):
         self,
         *,
         event: str,
-        user: Optional[Dict[str, Any]] = None,
-        properties: Optional[Dict[str, Any]] = None,
+        user: Optional[dict[str, Any]] = None,
+        properties: Optional[dict[str, Any]] = None,
         session_id: Optional[str] = None,
         timestamp: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Track a user event.
 
         Args:
@@ -39,7 +39,7 @@ class Events(BaseResource):
         Returns:
             API response confirming event tracked
         """
-        payload: Dict[str, Any] = {"event": event}
+        payload: dict[str, Any] = {"event": event}
 
         if user is not None:
             payload["user"] = user

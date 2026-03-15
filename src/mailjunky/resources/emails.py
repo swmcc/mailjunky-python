@@ -1,6 +1,6 @@
 """Email resource for sending emails via MailJunky."""
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from .base import BaseResource
 
@@ -21,17 +21,17 @@ class Emails(BaseResource):
         self,
         *,
         from_: str,
-        to: Union[str, List[str]],
+        to: Union[str, list[str]],
         subject: str,
         html: Optional[str] = None,
         text: Optional[str] = None,
-        cc: Optional[Union[str, List[str]]] = None,
-        bcc: Optional[Union[str, List[str]]] = None,
-        reply_to: Optional[Union[str, List[str]]] = None,
-        headers: Optional[Dict[str, str]] = None,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        cc: Optional[Union[str, list[str]]] = None,
+        bcc: Optional[Union[str, list[str]]] = None,
+        reply_to: Optional[Union[str, list[str]]] = None,
+        headers: Optional[dict[str, str]] = None,
+        tags: Optional[list[str]] = None,
+        metadata: Optional[dict[str, Any]] = None,
+    ) -> dict[str, Any]:
         """Send a single email.
 
         Args:
@@ -50,7 +50,7 @@ class Emails(BaseResource):
         Returns:
             API response with message ID
         """
-        payload: Dict[str, Any] = {
+        payload: dict[str, Any] = {
             "from": from_,
             "to": to if isinstance(to, list) else [to],
             "subject": subject,
@@ -75,7 +75,7 @@ class Emails(BaseResource):
 
         return self._connection.post("/api/v1/emails/send", payload)
 
-    def send_batch(self, emails: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def send_batch(self, emails: list[dict[str, Any]]) -> dict[str, Any]:
         """Send multiple emails in a batch.
 
         Args:
