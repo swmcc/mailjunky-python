@@ -41,7 +41,9 @@ format: ## Format code
 check: lint test ## Run all checks
 	@echo "$(GREEN)All checks passed!$(RESET)"
 
-# 📦 Build
+# 📦 Build & Release
+
+VERSION := $(shell grep 'version = ' pyproject.toml | head -1 | cut -d'"' -f2)
 
 clean: ## Clean build artifacts
 	@echo "$(GREEN)Cleaning...$(RESET)"
@@ -51,9 +53,16 @@ build: clean ## Build package
 	@echo "$(GREEN)Building package...$(RESET)"
 	python -m build
 
-publish: build ## Publish to PyPI
-	@echo "$(GREEN)Publishing to PyPI...$(RESET)"
-	python -m twine upload dist/*
+release: ## Tag and push release (triggers CI publish to PyPI)
+	@echo "$(YELLOW)Creating release v$(VERSION)...$(RESET)"
+	@if git rev-parse v$(VERSION) >/dev/null 2>&1; then \
+		echo "$(YELLOW)Tag v$(VERSION) already exists!$(RESET)"; \
+		exit 1; \
+	fi
+	git tag -a v$(VERSION) -m "Release v$(VERSION)"
+	git push origin v$(VERSION)
+	@echo "$(GREEN)Tag v$(VERSION) pushed! GitHub Actions will publish to PyPI.$(RESET)"
+	@echo "  Watch: https://github.com/swmcc/mailjunky-python/actions"
 
 # 📖 Help
 
