@@ -30,7 +30,7 @@ class TestEmails:
             "/api/v1/emails/send",
             {
                 "from": "sender@example.com",
-                "to": ["recipient@example.com"],
+                "to": "recipient@example.com",
                 "subject": "Test",
                 "html": "<p>Hello</p>",
             },
@@ -57,9 +57,9 @@ class TestEmails:
         payload = call_args[1]
 
         assert payload["to"] == ["a@example.com", "b@example.com"]
-        assert payload["cc"] == ["cc@example.com"]
+        assert payload["cc"] == "cc@example.com"
         assert payload["bcc"] == ["bcc1@example.com", "bcc2@example.com"]
-        assert payload["reply_to"] == ["reply@example.com"]
+        assert payload["reply_to"] == "reply@example.com"
         assert payload["headers"] == {"X-Custom": "value"}
         assert payload["tags"] == ["transactional"]
         assert payload["metadata"] == {"user_id": "123"}

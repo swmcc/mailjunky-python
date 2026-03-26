@@ -52,7 +52,7 @@ class Emails(BaseResource):
         """
         payload: dict[str, Any] = {
             "from": from_,
-            "to": to if isinstance(to, list) else [to],
+            "to": to,
             "subject": subject,
         }
 
@@ -61,11 +61,11 @@ class Emails(BaseResource):
         if text is not None:
             payload["text"] = text
         if cc is not None:
-            payload["cc"] = cc if isinstance(cc, list) else [cc]
+            payload["cc"] = cc
         if bcc is not None:
-            payload["bcc"] = bcc if isinstance(bcc, list) else [bcc]
+            payload["bcc"] = bcc
         if reply_to is not None:
-            payload["reply_to"] = reply_to if isinstance(reply_to, list) else [reply_to]
+            payload["reply_to"] = reply_to
         if headers is not None:
             payload["headers"] = headers
         if tags is not None:
